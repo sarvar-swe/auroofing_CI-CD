@@ -19,7 +19,7 @@ jobs:
     - name: Build
       run: dotnet build --configuration Release
 
-dockerize:
+  dockerize:
     needs: build
     runs-on: ubuntu-latest
     env:
@@ -27,7 +27,7 @@ dockerize:
       DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
     steps:
     - name: Checkout code
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
     - name: Build Docker image
       run: docker build -t $DOCKER_USERNAME/auroofing .
     - name: Push Docker image
