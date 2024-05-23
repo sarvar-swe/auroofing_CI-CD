@@ -18,6 +18,11 @@ jobs:
       run: dotnet restore
     - name: Build
       run: dotnet build --configuration Release
+    - name: Deploy
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: _site
 
   dockerize:
     needs: build
