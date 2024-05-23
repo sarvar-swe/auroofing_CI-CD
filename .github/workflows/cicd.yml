@@ -20,7 +20,7 @@ jobs:
       run: dotnet build --configuration Release
   
   deploy:
-    if: github.ref == 'refs/heads/main'
+    needs: build
     runs-on: ubuntu-latest
 
     steps:
@@ -39,7 +39,7 @@ jobs:
       uses: peaceiris/actions-gh-pages@v3
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: ./publish
+        publish_dir: ./bin/Release/net8.0/publish
 
   dockerize:
     needs: build
