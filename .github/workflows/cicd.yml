@@ -53,5 +53,6 @@ jobs:
           username: ${{ secrets.DO_USERNAME }}
           key: ${{ secrets.DO_SSHKEY }}
           script: |
+            docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
             cd ~/auroofing
             docker pull ${{ secrets.DO_USERNAME }}/auroofing && docker-compose up -d --no-deps auroofing
