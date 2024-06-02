@@ -39,3 +39,18 @@ jobs:
       run: |
         docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
         docker push $DOCKER_USERNAME/auroofing
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: dockerize
+    
+    steps:
+      - name: Deploy to Digital Ocean droplet via SSH
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.DO_HOST }}
+          port: ${{ secrets.DO_PORT }}
+          username: ${{ secrets.DO_USERNAME }}
+          key: ${{ secrets.DO_SSHKEY }}
+          script: |
+            docker pull $DOCKER_USERNAME/auroofing && docker-compose up -d --no-deps auroofing
