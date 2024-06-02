@@ -45,6 +45,13 @@ jobs:
     needs: dockerize
     
     steps:
+      - name: Install Docker
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y docker.io
+          sudo systemctl start docker
+          sudo systemctl enable docker
+          
       - name: Deploy to Digital Ocean droplet via SSH
         uses: appleboy/ssh-action@v1.0.3
         with:
